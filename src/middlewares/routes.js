@@ -37,9 +37,8 @@ export const routes = [
         handler: (request, response) => {
             const { id } = request.params
 
-            const { name, email } = req.body
 
-            database.delete('Users', id)
+            database.deelte('Users', id)
             return response.writeHead(204)
         }
     }, {
@@ -47,7 +46,12 @@ export const routes = [
         path: buildRoutePath('/users/:id'),
         handler: (request, response) => {
             const { id } = request.params
-            database.delete('Users', id)
+
+            const { name, email } = request.body
+
+            database.update('Users', id, {
+                name, email,
+            })
             return response.writeHead(204)
         }
     }
