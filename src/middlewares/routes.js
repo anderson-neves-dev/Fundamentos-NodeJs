@@ -13,7 +13,7 @@ export const routes = [
         handler: (requests, response) => {
             const users = database.select("Users")
             return response
-                .setHeader('Content-type', 'aplication/json')
+                .setHeader('Content-type', 'application/json')
                 .end(JSON.stringify(users))
         }
     }, {
@@ -39,7 +39,7 @@ export const routes = [
 
 
             database.deelte('Users', id)
-            return response.writeHead(204)
+            return response.writeHead(204).end();
         }
     }, {
         method: 'PUT',
@@ -52,7 +52,8 @@ export const routes = [
             database.update('Users', id, {
                 name, email,
             })
-            return response.writeHead(204)
+            console.log("Deu certo")
+            return response.writeHead(204).end();
         }
     }
 
