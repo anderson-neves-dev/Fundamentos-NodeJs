@@ -11,7 +11,11 @@ export const routes = [
         method: 'GET',
         path: buildRoutePath('/users'),
         handler: (requests, response) => {
-            const users = database.select("Users")
+            const { seach } = requests.query
+            const users = database.select("Users", seach ? {
+                name: seach,
+                email: seach,
+            } : null)
             return response
                 .setHeader('Content-type', 'application/json')
                 .end(JSON.stringify(users))
@@ -21,6 +25,7 @@ export const routes = [
         path: buildRoutePath('/users'),
         handler: (request, response) => {
             const { name, email } = request.body
+            console.log(name)
             const user = {
                 id: randomUUID(),
                 name,
@@ -38,7 +43,7 @@ export const routes = [
             const { id } = request.params
 
 
-            database.deelte('Users', id)
+            database.delete('Users', id)
             return response.writeHead(204).end();
         }
     }, {
